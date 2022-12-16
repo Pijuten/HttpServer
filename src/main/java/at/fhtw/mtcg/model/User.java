@@ -3,9 +3,6 @@ package at.fhtw.mtcg.model;
 import com.fasterxml.jackson.annotation.JsonAlias;
 
 public class User {
-
-    @JsonAlias({"id"})
-    private Integer id;
     @JsonAlias({"Username"})
     private String username;
     @JsonAlias({"Password"})
@@ -17,14 +14,6 @@ public class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getUsername() {
