@@ -8,15 +8,16 @@ import at.fhtw.httpserver.http.HttpStatus;
 import at.fhtw.httpserver.server.Request;
 import at.fhtw.httpserver.server.Response;
 
+import java.sql.SQLException;
 import java.util.List;
 public class UserController extends Controller {
     private UserDAL userDAL;
     public UserController(UserDAL userDAL){this.userDAL=userDAL;}
 
     // GET /user(:id
-    public Response getUser(String id) {
+    public Response getUser(String userdata) {
         try {
-            User userData = this.userDAL.getUser(Integer.parseInt(id));
+            User userData = this.userDAL.getUser(userdata);
             String userDataJSON = this.getObjectMapper().writeValueAsString(userData);
 
             return new Response(
@@ -31,6 +32,8 @@ public class UserController extends Controller {
                     ContentType.JSON,
                     "{ \"message\" : \"Internal Server Error\" }"
             );
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -53,6 +56,8 @@ public class UserController extends Controller {
                     ContentType.JSON,
                     "{ \"message\" : \"Internal Server Error\" }"
             );
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
