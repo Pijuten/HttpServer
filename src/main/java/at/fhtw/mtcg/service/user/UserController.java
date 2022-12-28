@@ -1,12 +1,12 @@
 package at.fhtw.mtcg.service.user;
 
 import at.fhtw.mtcg.controller.Controller;
-import at.fhtw.mtcg.model.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import at.fhtw.httpserver.http.ContentType;
 import at.fhtw.httpserver.http.HttpStatus;
 import at.fhtw.httpserver.server.Request;
 import at.fhtw.httpserver.server.Response;
+import at.fhtw.mtcg.model.User;
 
 import java.sql.SQLException;
 public class UserController extends Controller {
