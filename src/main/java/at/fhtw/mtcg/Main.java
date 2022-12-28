@@ -3,6 +3,7 @@ package at.fhtw.mtcg;
 import at.fhtw.httpserver.utils.Router;
 import at.fhtw.httpserver.server.Server;
 import at.fhtw.mtcg.service.login.LoginService;
+import at.fhtw.mtcg.service.packages.PackageService;
 import at.fhtw.mtcg.service.user.UserService;
 
 import java.io.IOException;
@@ -22,6 +23,7 @@ public class Main {
         Router router = new Router();
         router.addService("/users", new UserService());
         router.addService("/sessions", new LoginService());
+        router.addService("/packages", new PackageService());
 
         return router;
     }
