@@ -3,13 +3,12 @@ package at.fhtw.sampleapp.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Controller {
-    private ObjectMapper objectMapper;
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     public Controller() {
-        this.objectMapper = new ObjectMapper();
     }
 
     public ObjectMapper getObjectMapper() {
-        return objectMapper;
+        return this.objectMapper;
     }
 }

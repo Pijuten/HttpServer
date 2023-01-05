@@ -7,23 +7,13 @@ import at.fhtw.httpserver.server.Request;
 import at.fhtw.httpserver.server.Response;
 import at.fhtw.httpserver.server.Service;
 
-public class UserService implements Service  {
-    private final UserController userController;
+public class UserService implements Service {
+    private final UserController userController = new UserController(new UserDAL());
 
     public UserService() {
-        this.userController = new UserController(new UserDAL());
     }
 
-    @Override
     public Response handleRequest(Request request) {
-        if(request.getMethod() == Method.POST) {
-            return this.userController.addUser(request);
-        }
-
-        return new Response(
-                HttpStatus.BAD_REQUEST,
-                ContentType.JSON,
-                "[]"
-        );
+        return request.getMethod() == Method.POST ? this.userController.addUser(request) : new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, "[]");
     }
 }

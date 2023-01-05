@@ -5,5 +5,8 @@ public enum Method {
     POST,
     PUT,
     PATCH,
-    DELETE,
+    DELETE;
+
+    Method() {
+    }
 }

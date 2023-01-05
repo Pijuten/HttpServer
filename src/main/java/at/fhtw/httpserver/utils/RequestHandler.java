@@ -4,12 +4,10 @@ import at.fhtw.httpserver.http.ContentType;
 import at.fhtw.httpserver.http.HttpStatus;
 import at.fhtw.httpserver.server.Request;
 import at.fhtw.httpserver.server.Response;
-import at.fhtw.httpserver.utils.RequestBuilder;
-import at.fhtw.httpserver.utils.Router;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
@@ -26,36 +24,36 @@ public class RequestHandler implements Runnable {
         this.router = router;
     }
 
-    @Override
     public void run() {
         try {
+            Request request = (new RequestBuilder()).buildRequest(this.bufferedReader);
             Response response;
-            Request request = new RequestBuilder().buildRequest(this.bufferedReader);
-
             if (request.getPathname() == null) {
-                response = new Response(
-                    HttpStatus.BAD_REQUEST,
-                    ContentType.JSON,
-                    "[]"
-                );
+                response = new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, "[]");
             } else {
                 response = this.router.resolve(request.getServiceRoute()).handleRequest(request);
             }
-            printWriter.write(response.get());
-        } catch (IOException e) {
-            System.err.println(Thread.currentThread().getName() + " Error: " + e.getMessage());
+
+            this.printWriter.write(response.get());
+        } catch (IOException var11) {
+            PrintStream var10000 = System.err;
+            String var10001 = Thread.currentThread().getName();
+            var10000.println(var10001 + " Error: " + var11.getMessage());
         } finally {
             try {
-                if (printWriter != null) {
-                    printWriter.close();
+                if (this.printWriter != null) {
+                    this.printWriter.close();
                 }
-                if (bufferedReader != null) {
-                    bufferedReader.close();
-                    clientSocket.close();
+
+                if (this.bufferedReader != null) {
+                    this.bufferedReader.close();
+                    this.clientSocket.close();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (IOException var10) {
+                var10.printStackTrace();
             }
+
         }
+
     }
 }

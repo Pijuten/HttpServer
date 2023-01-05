@@ -1,3 +1,4 @@
+
 package at.fhtw.httpserver.http;
 
 public enum ContentType {
@@ -7,7 +8,7 @@ public enum ContentType {
 
     public final String type;
 
-    ContentType(String type) {
+    private ContentType(String type) {
         this.type = type;
     }
 }

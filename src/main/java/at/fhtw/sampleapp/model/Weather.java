@@ -10,8 +10,8 @@ public class Weather {
     @JsonAlias({"temperature"})
     private float temperature;
 
-    // Jackson needs the default constructor
-    public Weather() {}
+    public Weather() {
+    }
 
     public Weather(Integer id, String city, float temperature) {
         this.id = id;
@@ -20,7 +20,7 @@ public class Weather {
     }
 
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Integer id) {
@@ -28,7 +28,7 @@ public class Weather {
     }
 
     public String getCity() {
-        return city;
+        return this.city;
     }
 
     public void setCity(String city) {
@@ -36,7 +36,7 @@ public class Weather {
     }
 
     public float getTemperature() {
-        return temperature;
+        return this.temperature;
     }
 
     public void setTemperature(float temperature) {
