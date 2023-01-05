@@ -2,8 +2,7 @@ CREATE TABLE userData(
     username VARCHAR PRIMARY KEY UNIQUE, 
     password VARCHAR,
     bio varchar,
-    profileimage varchar,
-    score int
+    profileimage varchar
     );
 CREATE TABLE cards(
     cardid varchar PRIMARY KEY UNIQUE, 
