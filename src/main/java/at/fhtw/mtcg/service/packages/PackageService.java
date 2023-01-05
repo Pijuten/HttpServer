@@ -8,21 +8,12 @@ import at.fhtw.httpserver.server.Response;
 import at.fhtw.httpserver.server.Service;
 
 public class PackageService implements Service {
-    private final PackageController packageController;
+    private final PackageController packageController = new PackageController(new PackageDAL());
 
     public PackageService() {
-        this.packageController = new PackageController(new PackageDAL());
     }
-    @Override
-    public Response handleRequest(Request request) {
-        if(request.getMethod() == Method.POST) {
-            return this.packageController.addPackage(request);
-        }
 
-        return new Response(
-                HttpStatus.BAD_REQUEST,
-                ContentType.JSON,
-                "[]"
-        );
+    public Response handleRequest(Request request) {
+        return request.getMethod() == Method.POST ? this.packageController.addPackage(request) : new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, "[]");
     }
 }

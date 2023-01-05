@@ -7,19 +7,13 @@ import at.fhtw.httpserver.server.Request;
 import at.fhtw.httpserver.server.Response;
 import at.fhtw.httpserver.server.Service;
 
-public class LoginService  implements Service{
-    private final LoginController loginController;
-    public LoginService() {this.loginController = new LoginController(new LoginDAL());}
-    @Override
-    public Response handleRequest(Request request) {
-        if(request.getMethod() == Method.POST) {
-            return this.loginController.loginUser(request);
-        }
+public class LoginService implements Service {
+    private final LoginController loginController = new LoginController(new LoginDAL());
 
-        return new Response(
-                HttpStatus.BAD_REQUEST,
-                ContentType.JSON,
-                "[]"
-        );
+    public LoginService() {
+    }
+
+    public Response handleRequest(Request request) {
+        return request.getMethod() == Method.POST ? this.loginController.loginUser(request) : new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, "[]");
     }
 }

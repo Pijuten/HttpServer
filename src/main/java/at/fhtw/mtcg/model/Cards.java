@@ -5,15 +5,16 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 public class Cards {
     @JsonAlias({"Id"})
     private String id;
-
     @JsonAlias({"Name"})
     private String name;
-
     @JsonAlias({"Damage"})
     private float damage;
 
+    public Cards() {
+    }
+
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(String id) {
@@ -21,7 +22,7 @@ public class Cards {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -29,7 +30,7 @@ public class Cards {
     }
 
     public float getDamage() {
-        return damage;
+        return this.damage;
     }
 
     public void setDamage(float damage) {
