@@ -20,7 +20,7 @@ public class CardDAL {
         ResultSet rs = ps.executeQuery();
         List<Cards> cards = new ArrayList<>();
         if (!rs.isBeforeFirst()) {
-            System.out.println("Nothing");
+            connection.close();
             return null;
         } else {
             while(rs.next()) {

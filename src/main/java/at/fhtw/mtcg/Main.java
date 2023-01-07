@@ -3,6 +3,7 @@ package at.fhtw.mtcg;
 import at.fhtw.httpserver.server.Server;
 import at.fhtw.httpserver.utils.Router;
 import at.fhtw.mtcg.service.card.CardService;
+import at.fhtw.mtcg.service.deck.DeckService;
 import at.fhtw.mtcg.service.login.LoginService;
 import at.fhtw.mtcg.service.packages.PackageService;
 import at.fhtw.mtcg.service.transaction.TransactionService;
@@ -31,6 +32,7 @@ public class Main {
         router.addService("/packages", new PackageService());
         router.addService("/transactions", new TransactionService());
         router.addService("/cards", new CardService());
+        router.addService("/deck", new DeckService());
         return router;
     }
 }
