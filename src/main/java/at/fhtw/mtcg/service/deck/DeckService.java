@@ -12,7 +12,7 @@ public class DeckService implements Service {
     private final DeckController deckController = new DeckController(new DeckDAL());
     public Response handleRequest(Request request){
         if(request.getMethod() == Method.GET && request.getHeaderMap().getHeader("Authorization")!=null){
-            return deckController.showDeck(request.getHeaderMap().getHeader("Authorization"));
+            return deckController.showDeck(request);
         }else if(request.getMethod() == Method.PUT && request.getHeaderMap().getHeader("Authorization")!=null){
             return deckController.editDeck(request.getHeaderMap().getHeader("Authorization"), request);
         }

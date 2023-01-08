@@ -1,6 +1,11 @@
 CREATE TABLE userData(
     username VARCHAR PRIMARY KEY UNIQUE, 
     password VARCHAR,
+    currency int DEFAULT 40,
+    score int DEFAULT 1000,
+    wins int DEFAULT 0,
+    losses int DEFAULT 0,
+    displayName varchar,
     bio varchar,
     profileimage varchar
     );

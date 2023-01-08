@@ -11,6 +11,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -21,14 +22,18 @@ public class DeckController extends Controller {
         this.deckDAL = deckDAL;
     }
 
-    public Response showDeck(String username) {
+    public Response showDeck(Request request) {
+        String username=request.getHeaderMap().getHeader("Authorization");
         AuthTokenHandler authTokenHandler = new AuthTokenHandler(username);
         try {
-            List <Cards> cards = this.deckDAL.showDeck(authTokenHandler.getName());
-
-            if ( cards!= null) {
-                String cardJson = new Gson().toJson(cards);
-                return new Response(HttpStatus.OK, ContentType.JSON, "{ \"message\" : \"Success\" , \"cards:\"" + cardJson + "}");
+            List<Cards> cards = this.deckDAL.showDeck(authTokenHandler.getName());
+            if (cards != null) {
+                if(request.getParams()==null){
+                    String cardJson = new Gson().toJson(cards);
+                    return new Response(HttpStatus.OK, ContentType.JSON, "{ \"message\" : \"Success\" , \"cards:\"" + cardJson + "}");
+                } else if(request.getParams().contains("format=plain")){
+                    return new Response(HttpStatus.OK, ContentType.JSON, "{\""+cards.get(0).getName()+"\" "+cards.get(0).getDamage()+",\n \""+cards.get(1).getName()+"\" "+cards.get(1).getDamage()+",\n \""+cards.get(2).getName()+"\" "+cards.get(2).getDamage()+",\n \""+cards.get(3).getName()+"\" "+cards.get(3).getDamage()+",\n}");
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();

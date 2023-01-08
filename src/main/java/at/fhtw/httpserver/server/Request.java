@@ -17,7 +17,7 @@ public class Request {
     }
 
     public String getServiceRoute() {
-        return this.pathParts != null && !this.pathParts.isEmpty() ? "/" + (String)this.pathParts.get(0) : null;
+        return this.pathParts != null && !this.pathParts.isEmpty() ? "/" + this.pathParts.get(0) : null;
     }
 
     public String getUrlContent() {
@@ -33,7 +33,7 @@ public class Request {
             this.setParams(pathParts[1]);
         } else {
             this.setPathname(urlContent);
-            this.setParams((String)null);
+            this.setParams(null);
         }
 
     }
