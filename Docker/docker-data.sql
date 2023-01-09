@@ -4,10 +4,11 @@ CREATE TABLE userData(
     currency int DEFAULT 40,
     score int DEFAULT 1000,
     wins int DEFAULT 0,
+    draws int DEFAULT 0,
     losses int DEFAULT 0,
     displayName varchar,
     bio varchar,
-    profileimage varchar
+    profileimage varchachar
     );
 CREATE TABLE cards(
     cardid varchar PRIMARY KEY UNIQUE, 
