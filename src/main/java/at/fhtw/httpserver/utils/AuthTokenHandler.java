@@ -11,9 +11,14 @@ public class AuthTokenHandler {
     }
 
     public String getName() {
-        Pattern p = Pattern.compile("Basic (.*?)-mtcgToken");
-        Matcher m = p.matcher(this.AuthToken);
-        m.find();
-        return m.group(1);
+        try {
+            Pattern p = Pattern.compile("Basic (.*?)-mtcgToken");
+            Matcher m = p.matcher(this.AuthToken);
+            m.find();
+            return m.group(1);
+        }catch (Exception e){
+            return null;
+        }
+
     }
 }

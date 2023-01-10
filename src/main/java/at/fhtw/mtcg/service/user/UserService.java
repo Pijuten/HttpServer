@@ -14,6 +14,13 @@ public class UserService implements Service {
     }
 
     public Response handleRequest(Request request) {
-        return request.getMethod() == Method.POST ? this.userController.addUser(request) : new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, "[]");
+        if (request.getMethod() == Method.POST && request.getHeaderMap().getHeader("Authorization")!=null) {
+            return this.userController.addUser(request);
+        } else if (request.getMethod() == Method.GET && request.getHeaderMap().getHeader("Authorization")!=null && request.getPathParts().size()>1) {
+            return this.userController.getUserInfo(request);
+        } else if (request.getMethod() == Method.PUT && request.getHeaderMap().getHeader("Authorization")!=null) {
+            return this.userController.editUserData(request);
+        }
+        return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, "[]");
     }
 }
