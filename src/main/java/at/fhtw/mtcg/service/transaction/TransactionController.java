@@ -17,13 +17,13 @@ public class TransactionController extends Controller {
     public Response acquirePackage(String username) {
         try {
             AuthTokenHandler authTokenHandler = new AuthTokenHandler(username);
-            if (this.transactionDAL.acquirePackage(authTokenHandler.getName())) {
+            String authUsername=authTokenHandler.compareToken();
+            if(authUsername!=null){
+            if (this.transactionDAL.acquirePackage(authUsername)) {
                 return new Response(HttpStatus.OK, ContentType.JSON, "{ \"message\" : \"Package acquisition success\" }");
-            }
+            }}return new Response(HttpStatus.FORBIDDEN, ContentType.JSON, "{ \"message\" : \"Package acquisition Failed\" }");
         } catch (SQLException var3) {
             return new Response(HttpStatus.INTERNAL_SERVER_ERROR, ContentType.JSON, "{ \"message\" : \"Package acquisition Failed\" }");
         }
-
-        return new Response(HttpStatus.INTERNAL_SERVER_ERROR, ContentType.JSON, "{ \"message\" : \"Package acquisition Failed\" }");
     }
 }

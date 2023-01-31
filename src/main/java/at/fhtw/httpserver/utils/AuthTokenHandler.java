@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 public class AuthTokenHandler {
     private String AuthToken;
 
+    private AuthTokenHandlerDAL authTokenHandlerDAL=new AuthTokenHandlerDAL();
     public AuthTokenHandler(String AuthToken) {
         this.AuthToken = AuthToken;
     }
@@ -20,5 +21,12 @@ public class AuthTokenHandler {
             return null;
         }
 
+    }
+    public String compareToken(){
+        return this.authTokenHandlerDAL.getUser(AuthToken);
+    }
+    public String createToken(){
+
+        return "Basic "+AuthToken+"-mtcgToken";
     }
 }

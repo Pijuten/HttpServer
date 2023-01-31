@@ -16,10 +16,11 @@ public class StatsController extends Controller {
     public StatsController(StatsDAL statsDAL){this.statsDAL=statsDAL;}
     public Response getStats(Request request) {
         AuthTokenHandler authTokenHandler = new AuthTokenHandler(request.getHeaderMap().getHeader("Authorization"));
-        if (authTokenHandler.getName() != null) {
-            List <Integer> stats=this.statsDAL.getStats(authTokenHandler.getName());
+        String username = authTokenHandler.compareToken();
+        if ( username != null) {
+            List <Integer> stats=this.statsDAL.getStats(username);
             if(stats!=null){
-                return new Response(HttpStatus.OK, ContentType.JSON, "{ message: \"Success\", \"Wins/Draws/Losses\": "+stats.get(0)+"/"+stats.get(1)+"/stats.get(2) }");
+                return new Response(HttpStatus.OK, ContentType.JSON, "{ message: \"Success\", \"Wins/Draws/Losses\": "+stats.get(0)+"/"+stats.get(1)+"/ }");
             }
         }
         return null;

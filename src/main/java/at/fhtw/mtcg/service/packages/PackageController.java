@@ -22,18 +22,19 @@ public class PackageController extends Controller {
 
     public Response addPackage(Request request) {
         AuthTokenHandler authTokenHandler = new AuthTokenHandler(request.getHeaderMap().getHeader("Authorization"));
-        if (authTokenHandler.getName().equals("admin")) {
+        if (authTokenHandler.compareToken().equals("admin")) {
             try {
                 ObjectMapper mapper = new ObjectMapper();
-                List<Cards> cards = (List)mapper.readValue(request.getBody(), new TypeReference<List<Cards>>() {
+                List<Cards> cards = mapper.readValue(request.getBody(), new TypeReference<List<Cards>>() {
                 });
                 if (this.packageDAL.addPackages(cards)) {
                     return new Response(HttpStatus.CREATED, ContentType.JSON, "{ message: \"Package Creation Success\" }");
                 }
             } catch (JsonProcessingException var5) {
                 var5.printStackTrace();
+                return new Response(HttpStatus.INTERNAL_SERVER_ERROR, ContentType.JSON, "{ \"message\" : \"Package Creation Failed\" }");
             } catch (SQLException var6) {
-                throw new RuntimeException(var6);
+                return new Response(HttpStatus.INTERNAL_SERVER_ERROR, ContentType.JSON, "{ \"message\" : \"Package Creation Failed\" }");
             }
         }
 

@@ -1,6 +1,7 @@
 CREATE TABLE userData(
     username VARCHAR PRIMARY KEY UNIQUE, 
     password VARCHAR,
+    authtoken VARCHAR,
     currency int DEFAULT 40,
     score int DEFAULT 1000,
     wins int DEFAULT 0,
@@ -8,7 +9,7 @@ CREATE TABLE userData(
     losses int DEFAULT 0,
     displayName varchar,
     bio varchar,
-    profileimage varchachar
+    profileimage VARCHAR
     );
 CREATE TABLE cards(
     cardid varchar PRIMARY KEY UNIQUE, 

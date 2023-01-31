@@ -17,11 +17,11 @@ public class CardController extends Controller {
         this.cardDAL = cardDAL;
     }
 
-    public Response showCards(String username) {
-        AuthTokenHandler authTokenHandler = new AuthTokenHandler(username);
-
+    public Response showCards(String token) {
+        AuthTokenHandler authTokenHandler = new AuthTokenHandler(token);
+        String username=authTokenHandler.compareToken();
         try {
-            List<Cards> cards = this.cardDAL.showCards(authTokenHandler.getName());
+            List<Cards> cards = this.cardDAL.showCards(username);
             if (cards != null) {
                 String cardJson = new Gson().toJson(cards);
                 return new Response(HttpStatus.OK, ContentType.JSON, "{ \"message\": success, \"cards:\"" + cardJson + "}");

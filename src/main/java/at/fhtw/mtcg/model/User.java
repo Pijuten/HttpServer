@@ -7,13 +7,15 @@ public class User {
     private String username;
     @JsonAlias({"Password"})
     private String password;
-
+    @JsonAlias({"Authtoken"})
+    private String authtoken;
     public User() {
     }
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+        this.authtoken = null;
     }
 
     public String getUsername() {
@@ -30,5 +32,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getAuthtoken() {
+        return authtoken;
+    }
+
+    public void setAuthtoken(String authtoken) {
+        this.authtoken = authtoken;
     }
 }

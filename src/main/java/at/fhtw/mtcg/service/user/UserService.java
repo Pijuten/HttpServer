@@ -14,7 +14,7 @@ public class UserService implements Service {
     }
 
     public Response handleRequest(Request request) {
-        if (request.getMethod() == Method.POST && request.getHeaderMap().getHeader("Authorization")!=null) {
+        if (request.getMethod() == Method.POST) {
             return this.userController.addUser(request);
         } else if (request.getMethod() == Method.GET && request.getHeaderMap().getHeader("Authorization")!=null && request.getPathParts().size()>1) {
             return this.userController.getUserInfo(request);

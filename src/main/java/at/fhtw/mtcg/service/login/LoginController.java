@@ -18,9 +18,9 @@ public class LoginController extends Controller {
 
     public Response loginUser(Request request) {
         try {
-            User user = (User)this.getObjectMapper().readValue(request.getBody(), User.class);
+            User user = this.getObjectMapper().readValue(request.getBody(), User.class);
             if (this.loginDAL.loginUser(user) != null) {
-                return new Response(HttpStatus.CREATED, ContentType.JSON, "{ ,message: \"Login Success\",  token: \"" + user.getUsername() + "-mtcgToken\"}");
+                return new Response(HttpStatus.CREATED, ContentType.JSON, "{ ,message: \"Login Success\",  token: \"" + user.getAuthtoken()+ "}");
             }
         } catch (JsonProcessingException var3) {
             var3.printStackTrace();

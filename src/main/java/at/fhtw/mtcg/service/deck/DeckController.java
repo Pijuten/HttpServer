@@ -26,7 +26,7 @@ public class DeckController extends Controller {
         String username=request.getHeaderMap().getHeader("Authorization");
         AuthTokenHandler authTokenHandler = new AuthTokenHandler(username);
         try {
-            List<Cards> cards = this.deckDAL.showDeck(authTokenHandler.getName());
+            List<Cards> cards = this.deckDAL.showDeck(authTokenHandler.compareToken());
             if (cards != null) {
                 if(request.getParams()==null){
                     String cardJson = new Gson().toJson(cards);
@@ -44,7 +44,7 @@ public class DeckController extends Controller {
 
     public Response editDeck(String userToken, Request request) {
         AuthTokenHandler authTokenHandler = new AuthTokenHandler(userToken);
-        String username = authTokenHandler.getName();
+        String username = authTokenHandler.createToken();
         if (username != null) {
             try {
                 ObjectMapper mapper = new ObjectMapper();

@@ -28,14 +28,15 @@ public class UserController extends Controller {
             var3.printStackTrace();
             return new Response(HttpStatus.INTERNAL_SERVER_ERROR, ContentType.JSON, "{ \"message\" : \"Registration Failed\" }");
         } catch (SQLException var4) {
-            throw new RuntimeException(var4);
+            var4.printStackTrace();
+            return new Response(HttpStatus.INTERNAL_SERVER_ERROR, ContentType.JSON, "{ \"message\" : \"Registration Failed\" }");
         }
     }
 
     public Response getUserInfo(Request request) {
         AuthTokenHandler authTokenHandler = new AuthTokenHandler(request.getHeaderMap().getHeader("Authorization"));
-        if (authTokenHandler.getName() != null) {
-            UserData userData = this.userDAL.getUserInfo(authTokenHandler.getName());
+        if (authTokenHandler.compareToken() != null) {
+            UserData userData = this.userDAL.getUserInfo(authTokenHandler.compareToken());
             if (userData != null) {
                 String cardJson = new Gson().toJson(userData);
                 return new Response(HttpStatus.OK, ContentType.JSON, "{ \"message\" : \"Success\" , \"Info:\"" + cardJson + "}");
@@ -48,12 +49,12 @@ public class UserController extends Controller {
         try {
             AuthTokenHandler authTokenHandler = new AuthTokenHandler(request.getHeaderMap().getHeader("Authorization"));
             UserData userData = this.getObjectMapper().readValue(request.getBody(), UserData.class);
-            if (this.userDAL.editUserData(userData, authTokenHandler.getName())) {
+            if (this.userDAL.editUserData(userData, authTokenHandler.compareToken())) {
                 return new Response(HttpStatus.OK, ContentType.JSON, "{ \"message\" : \"Edit Success\" }");
             }
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        return new Response(HttpStatus.INTERNAL_SERVER_ERROR, ContentType.JSON, "{ \"message\" : \"Edit Failed\" }");
+        return new Response(HttpStatus.FORBIDDEN, ContentType.JSON, "{ \"message\" : \"Edit Failed\" }");
     }
 }

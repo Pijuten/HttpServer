@@ -14,6 +14,9 @@ public class LoginService implements Service {
     }
 
     public Response handleRequest(Request request) {
-        return request.getMethod() == Method.POST ? this.loginController.loginUser(request) : new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, "[]");
+        if(request.getMethod() == Method.POST){
+            return this.loginController.loginUser(request);
+        }
+        return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, "[]");
     }
 }

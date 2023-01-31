@@ -25,7 +25,7 @@ public class UserDAL {
                 return true;
             }
         } catch (SQLException var5) {
-            throw new RuntimeException();
+            return false;
         }
 
         connection.close();

@@ -15,4 +15,14 @@ class AuthTokenHandlerTest {
         AuthTokenHandler authTokenHandler = new AuthTokenHandler("");
         assertNull(authTokenHandler.getName());
     }
+    @Test
+    public void creatTokenTest(){
+        AuthTokenHandler authTokenHandler = new AuthTokenHandler("kienboec");
+        assertEquals(authTokenHandler.createToken(),"Basic kienboec-mtcgToken");
+    }
+    @Test
+    public void compareToktenTest(){
+        AuthTokenHandler authTokenHandler = new AuthTokenHandler("Basic kienboec-mtcgToken");
+        assertEquals(authTokenHandler.compareToken(),"kienboec");
+    }
 }
